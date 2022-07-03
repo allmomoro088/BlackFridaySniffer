@@ -30,7 +30,14 @@ namespace BlackFridaySniffer.Services.Handlers
             sb.Append("Best prices: ");
             foreach (var item in goodPrices)
             {
-                sb.Append($"\n*{item.Name}* - {item.CurrentPrice}; ");
+                if (item.CurrentPrice <= item.DesiredPrice)
+                {
+                    sb.Append($"\n *OD {item.Name}* - {item.CurrentPrice}");
+                }
+                else
+                {
+                    sb.Append($"\n*{item.Name}* - {item.CurrentPrice}");
+                }
             }
             SendSMS(sb.ToString());
         }

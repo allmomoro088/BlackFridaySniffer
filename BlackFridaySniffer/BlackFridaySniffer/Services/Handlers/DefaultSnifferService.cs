@@ -15,19 +15,19 @@ namespace BlackFridaySniffer.Services.Handlers
         IWebDriver _driver;
         IProductRepository _productRepository;
 
-        public DefaultSnifferService(IWebDriver driver, IProductRepository productDao)
+        public DefaultSnifferService(IWebDriver driver, IProductRepository productRepository)
         {
             _driver = driver;
-            _productRepository = productDao;
+            _productRepository = productRepository;
         }
 
         public double GetPrice(string productUrl, string priceXPath)
         {
             _driver.Url = productUrl;
             var element = _driver.FindElement(By.XPath(priceXPath));
-            var text = element.Text;
+            var text = element.Text.Replace("R$", "").Trim();
 
-            var price = double.Parse(text.Split(' ')[1], new CultureInfo("pt-br"));
+            var price = double.Parse(text, new CultureInfo("pt-br"));
             return price;
         }
 
@@ -37,7 +37,7 @@ namespace BlackFridaySniffer.Services.Handlers
             foreach (var product in _productRepository.ReadAll())
             {
                 double price = GetPrice(product.Url, product.PriceXPath);
-                if (price < product.MaximumPrice)
+                if (price <= product.MaximumPrice)
                 {
                     product.CurrentPrice = price;
                     goodPrices.Add(product);
