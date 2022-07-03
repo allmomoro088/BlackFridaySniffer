@@ -14,7 +14,7 @@ namespace BlackFridaySniffer
     {
         private readonly ILogger<Worker> _logger;
         ISnifferService _snifferService;
-        IWhatsAppService _smsService;
+        ISMSService _smsService;
 
         public Worker(ILogger<Worker> logger, ISnifferService snifferService, ISMSService smsService)
         {

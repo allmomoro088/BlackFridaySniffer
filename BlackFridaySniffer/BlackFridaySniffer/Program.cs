@@ -41,7 +41,7 @@ namespace BlackFridaySniffer
 
                     string driverPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                     services.AddTransient<ISnifferService, DefaultSnifferService>();
-                    services.AddTransient<IWhatsAppService, DefaultSMSService>();
+                    services.AddTransient<ISMSService, DefaultSMSService>();
                     services.AddTransient<IProductRepository, ProductRepository>();
 
                     var opt = new ChromeOptions();
