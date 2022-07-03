@@ -56,3 +56,7 @@ To add or remove products from your database, you'll need to start **ProductLoad
 To add, just launch **ProductLoader**, and there fill the fields with product name, it's url on the website you want to get it from, the xpath where the price is located (which for that you'll need to, go to the product's url, right click the price and click on Inspect, right the price HTML element, and go to Copy, Copy Xpath, then paste that information on Xpath field), maximum price and the desired one, and click Insert.
 
 To remove, click on the product on the list, then click on Remove.
+
+## Modifing
+
+The project is currently built to handle Brazilian Real (BRL) prices. That means that prices that have `R$` before it, will remove that part before parsing the price number into a double, and the CultureInfo used is `pt-br`, which will parse numbers using comma as decimal divider. To modify that, go to **DefaultSnifferService.cs** and change it to the currency and culture used in your country. Later it's expected to handle that in a easier way.
